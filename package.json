@@ -1,7 +1,7 @@
 {
-  "name": "node-rest-api",
+  "name": "node-graphql-api",
   "version": "1.0.0",
-  "description": "Project for study of NodeJS",
+  "description": "Project for study of GraphQL with Nodejs",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r esm index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UpperApps/node-rest-api.git"
+    "url": "git+https://github.com/UpperApps/node-graphql-api.git"
   },
   "keywords": [
     "node",
@@ -20,9 +20,9 @@
   "author": "Rodrigo Melo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/UpperApps/node-rest-api/issues"
+    "url": "https://github.com/UpperApps/node-graphql-api/issues"
   },
-  "homepage": "https://github.com/UpperApps/node-rest-api#readme",
+  "homepage": "https://github.com/UpperApps/node-graphql-api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "consign": "^0.1.6",

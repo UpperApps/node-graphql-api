@@ -1,1 +1,1 @@
-# NodeJS Rest APi
+# NodeJS GraphQL API
