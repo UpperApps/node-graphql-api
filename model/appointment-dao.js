@@ -55,6 +55,19 @@ class AppointmentDAO {
     });
   }
 
+  findByClientId(client_id) {
+    const sql = 'SELECT * FROM appointment where client_id = ?';
+
+    return new Promise((resolve, reject) => {
+      connection.query(sql, client_id, (error, result) => {
+        if (error) {
+          return reject(`Error when getting appointment with client id: ${client_id} - Error: ${error.sqlMessage}`);
+        }
+        return resolve(result);
+      });
+    });
+  }
+
   delete(id) {
     const sql = 'DELETE FROM appointment where id = ?';
 

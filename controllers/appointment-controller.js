@@ -23,6 +23,17 @@ router.get('/:id', [...idGETValidations], (req, res) => {
     .catch(error => res.status(404).json(error));
 });
 
+router.get('/clients/:id', [...idGETValidations], (req, res) => {
+  validateInputs(req, res);
+
+  const id = req.params.id;
+
+  appointmentService
+    .findByClientId(id)
+    .then(appointments => res.json(appointments))
+    .catch(error => res.status(404).json(error));
+});
+
 router.delete('/:id', [...idValidations], (req, res) => {
   validateInputs(req, res);
   const id = req.params.id;

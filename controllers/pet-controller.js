@@ -46,7 +46,7 @@ router.put('/:client_id/pets/:id', [...idValidations, nameValidations], (req, re
 
 router.post('/:client_id/pets', [nameValidations], (req, res) => {
   validateInputs(req, res);
-  console.log(req.params.client_id);
+
   const client_id = req.params.client_id;
   const pet = { ...req.body, client_id };
 

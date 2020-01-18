@@ -26,7 +26,7 @@ class AppointmentService {
       }
 
       appointmentDAO
-        .update(id, appointmentWithDate)
+        .update(id, appointment)
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
@@ -54,6 +54,15 @@ class AppointmentService {
     return new Promise((resolve, reject) => {
       appointmentDAO
         .findById(id)
+        .then(result => resolve(result))
+        .catch(error => reject(error));
+    });
+  }
+
+  findByClientId(client_id) {
+    return new Promise((resolve, reject) => {
+      appointmentDAO
+        .findByClientId(client_id)
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
