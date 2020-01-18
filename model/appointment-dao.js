@@ -21,7 +21,7 @@ class AppointmentDAO {
 
       connection.query(sql, [appointment, id], error => {
         if (error) {
-          return reject(`Error on uptating appointment: ${error.sqlMessage}`);
+          return reject(`Error on updating appointment: ${error.sqlMessage}`);
         }
 
         return resolve(appointment);

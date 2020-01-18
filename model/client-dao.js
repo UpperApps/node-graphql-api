@@ -21,7 +21,7 @@ class ClientDAO {
 
       connection.query(sql, [client, id], error => {
         if (error) {
-          return reject(`Error on uptating client: ${error.sqlMessage}`);
+          return reject(`Error on updating client: ${error.sqlMessage}`);
         }
 
         return resolve(client);

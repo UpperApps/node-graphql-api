@@ -21,7 +21,7 @@ class PetDAO {
 
       connection.query(sql, [pet, id], error => {
         if (error) {
-          return reject(`Error on uptating pet: ${error.sqlMessage}`);
+          return reject(`Error on updating pet: ${error.sqlMessage}`);
         }
 
         return resolve(pet);

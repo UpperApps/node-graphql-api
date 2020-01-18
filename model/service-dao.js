@@ -21,7 +21,7 @@ class ServiceDAO {
 
       connection.query(sql, [service, id], error => {
         if (error) {
-          return reject(`Error on uptating service: ${error.sqlMessage}`);
+          return reject(`Error on updating service: ${error.sqlMessage}`);
         }
 
         return resolve(service);

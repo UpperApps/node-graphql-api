@@ -1,0 +1,13 @@
+type Query {
+    status: String!
+}
+
+type Mutation {
+    addClient(name: String!, cpf: String!): Client!
+}
+
+type Client {
+    id: ID!
+    name: String!,
+    cpf: String!
+}
