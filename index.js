@@ -1,18 +1,19 @@
 import { GraphQLServer } from 'graphql-yoga';
 import connection from './infrastructure/mysql-connection';
+import clientDAO from './model/client-dao';
 
 const resolvers = {
   Query: {
     status: () => 'Server is running!'
   },
   Mutation: {
-    addClient: (root, params) => ({
-      id: 1,
-      name: params.name,
-      cpf: params.cpf
-    })
+    addClient: (root, params) =>
+      clientDAO
+        .save(params)
+        .then(result => result)
+        .catch(error => error)
   }
-}
+};
 
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',

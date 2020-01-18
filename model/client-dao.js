@@ -5,12 +5,14 @@ class ClientDAO {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO client SET ?';
 
-      connection.query(sql, client, error => {
+      connection.query(sql, client, (error, result, fields) => {
         if (error) {
           return reject(`Error on saving client: ${error.sqlMessage}`);
         }
 
-        return resolve(client);
+        const newClient = { id: result.insertId, name: client.name, cpf: client.cpf };
+        
+        return resolve(newClient);
       });
     });
   }
