@@ -4,7 +4,11 @@ import clientDAO from './model/client-dao';
 
 const resolvers = {
   Query: {
-    status: () => 'Server is running!'
+    clients: () =>
+      clientDAO
+        .findAll()
+        .then(result => result)
+        .catch(error => error)
   },
   Mutation: {
     addClient: (root, params) =>

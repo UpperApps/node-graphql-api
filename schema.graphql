@@ -1,13 +1,13 @@
 type Query {
-    status: String!
+  clients: [Client!]
 }
 
 type Mutation {
-    addClient(name: String!, cpf: String!): Client!
+  addClient(name: String!, cpf: String!): Client!
 }
 
 type Client {
-    id: ID!
-    name: String!,
-    cpf: String!
+  id: ID!
+  name: String!
+  cpf: String!
 }
