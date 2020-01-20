@@ -11,22 +11,27 @@ class ClientDAO {
         }
 
         const newClient = { id: result.insertId, name: client.name, cpf: client.cpf };
-        
+
         return resolve(newClient);
       });
     });
   }
 
   update(id, client) {
+    console.log(client);
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE client SET ? where id = ?';
 
-      connection.query(sql, [client, id], error => {
+      connection.query(sql, [client, id], (error, result) => {
         if (error) {
           return reject(`Error on updating client: ${error.sqlMessage}`);
+        } else if (result.affectedRows == 0) {
+          return reject(`No data updated for client with id ${id}`);
         }
 
-        return resolve(client);
+        const clientUpdated = { id, name: client.name, cpf: client.cpf };
+
+        return resolve(clientUpdated);
       });
     });
   }

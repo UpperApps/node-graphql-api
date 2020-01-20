@@ -7,6 +7,7 @@ import clientDAO from './model/client-dao';
 // TODO Separate resolvers and queries in specific files
 // TODO See how to implement 12 Factor App methodology with GraphQL/Nodejs (Circuit braker, retry, fallback, etc.)
 // TODO Include Typescript to the project
+// TODO Include input validations
 
 const resolvers = {
   Query: {
@@ -14,19 +15,24 @@ const resolvers = {
       clientDAO
         .findAll()
         .then(result => result)
-        .catch(error => error),
+        .catch(error => new Error(error)),
     client: (root, { id }) =>
       clientDAO
         .findById(id)
         .then(result => result)
-        .catch(error => error)
+        .catch(error => new Error(error))
   },
   Mutation: {
-    addClient: (root, params) =>
+    addClient: (root, param) =>
       clientDAO
-        .save(params)
+        .save(param.client)
         .then(result => result)
-        .catch(error => error)
+        .catch(error => new Error(error)),
+    updateClient: (root, param) =>
+      clientDAO
+        .update(param.id, param.client)
+        .then(result => result)
+        .catch(error => new Error(error))
   }
 };
 

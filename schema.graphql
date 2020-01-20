@@ -1,14 +1,20 @@
 type Query {
-  clients: [Client!],
-  client(id: ID!): Client!
+  clients: [Client!]
+  client(id: ID!): Client
 }
 
 type Mutation {
-  addClient(name: String!, cpf: String!): Client!
+  addClient(client: ClientInput!): Client!
+  updateClient(id: ID!, client: ClientInput!): Client!
 }
 
 type Client {
   id: ID!
+  name: String!
+  cpf: String!
+}
+
+input ClientInput {
   name: String!
   cpf: String!
 }
