@@ -5,7 +5,8 @@ type Query {
 
 type Mutation {
   addClient(client: ClientInput!): Client!
-  updateClient(id: ID!, client: ClientInput!): Client!
+  updateClient(id: ID!, client: ClientInput!): Client!,
+  deleteClient(id: ID!): String!
 }
 
 type Client {

@@ -32,6 +32,11 @@ const resolvers = {
       clientDAO
         .update(param.id, param.client)
         .then(result => result)
+        .catch(error => new Error(error)),
+    deleteClient: (root, { id }) =>
+      clientDAO
+        .delete(id)
+        .then(() => `Client with id ${ id } was removed.`)
         .catch(error => new Error(error))
   }
 };
