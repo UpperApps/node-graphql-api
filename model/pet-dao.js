@@ -10,15 +10,9 @@ class PetDAO {
           return reject(`Error on saving pet: ${error.sqlMessage}`);
         }
 
-        const newPet = {
-          id: result.insertId,
-          name: pet.name,
-          client_id: pet.client_id,
-          type: pet.type,
-          comments: pet.comments
-        };
-
-        return resolve(newPet);
+        return this.findById(result.insertId)
+          .then(newPet => resolve(newPet))
+          .catch(error => reject(`Error on saving pet: ${error.sqlMessage}`));
       });
     });
   }
@@ -38,27 +32,76 @@ class PetDAO {
   }
 
   findAll() {
-    const sql = 'SELECT * FROM pet';
+    const sql = `SELECT 
+                  p.id,
+                  p.name,
+                  p.type,
+                  p.comments,
+                  p.client_id,
+                  c.name AS owner_name,
+                  c.cpf AS owner_cpf
+              FROM
+                  pet p
+                      JOIN
+                  client c ON p.client_id = c.id`;
 
     return new Promise((resolve, reject) => {
       connection.query(sql, (error, result) => {
         if (error) {
           return reject(`Error when getting pets from database: ${error.sqlMessage}`);
         }
-        return resolve(result);
+
+        const pets = result.map(pet => ({
+          id: pet.id,
+          name: pet.name,
+          type: pet.type,
+          comments: pet.comments,
+          owner: {
+            id: pet.client_id,
+            name: pet.owner_name,
+            cpf: pet.owner_cpf
+          }
+        }));
+
+        return resolve(pets);
       });
     });
   }
 
   findById(id) {
-    const sql = 'SELECT * FROM pet where id = ?';
+    const sql = `SELECT 
+                  p.id,
+                  p.name,
+                  p.type,
+                  p.comments,
+                  p.client_id,
+                  c.name AS owner_name,
+                  c.cpf AS owner_cpf
+              FROM
+                  pet p
+                      JOIN
+                  client c ON p.client_id = c.id
+                  WHERE p.id = ?`;
 
     return new Promise((resolve, reject) => {
       connection.query(sql, id, (error, result) => {
         if (error) {
           return reject(`Error when getting pet with id: ${id} - Error: ${error.sqlMessage}`);
         }
-        return resolve(result[0]);
+
+        const pet = result.map(pet => ({
+          id: pet.id,
+          name: pet.name,
+          type: pet.type,
+          comments: pet.comments,
+          owner: {
+            id: pet.client_id,
+            name: pet.owner_name,
+            cpf: pet.owner_cpf
+          }
+        }));
+
+        return resolve(pet);
       });
     });
   }

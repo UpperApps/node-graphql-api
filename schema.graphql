@@ -20,7 +20,7 @@ type Client {
 type Pet {
     id: ID!
     name: String!
-    client_id: Int!
+    owner: Client!
     type: String
     comments: String!
 }
