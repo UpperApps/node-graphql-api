@@ -1,10 +1,12 @@
 import { GraphQLServer } from 'graphql-yoga';
 import connection from './infrastructure/mysql-connection';
 import clientDAO from './model/client-dao';
+import petDAO from './model/pet-dao';
 
+// TODO Remove controllers folder
 // TODO See how to return a custom error with GraphQL.
 // TODO Include Authentication/Authorization
-// TODO Separate resolvers and queries in specific files
+// TODO Separate resolvers, queries, types, etc. in specific files and folders
 // TODO See how to implement 12 Factor App methodology with GraphQL/Nodejs (Circuit braker, retry, fallback, etc.)
 // TODO Include Typescript to the project
 // TODO Include input validations
@@ -20,23 +22,33 @@ const resolvers = {
       clientDAO
         .findById(id)
         .then(result => result)
+        .catch(error => new Error(error)),
+    pets: () =>
+      petDAO
+        .findAll()
+        .then(result => result)
         .catch(error => new Error(error))
   },
   Mutation: {
-    addClient: (root, param) =>
+    addClient: (root, params) =>
       clientDAO
-        .save(param.client)
+        .save(params.client)
         .then(result => result)
         .catch(error => new Error(error)),
-    updateClient: (root, param) =>
+    updateClient: (root, params) =>
       clientDAO
-        .update(param.id, param.client)
+        .update(params.id, params.client)
         .then(result => result)
         .catch(error => new Error(error)),
     deleteClient: (root, { id }) =>
       clientDAO
         .delete(id)
-        .then(() => `Client with id ${ id } was removed.`)
+        .then(() => `Client with id ${id} was removed.`)
+        .catch(error => new Error(error)),
+    addPet: (root, { pet }) =>
+      petDAO
+        .save(pet)
+        .then(result => result)
         .catch(error => new Error(error))
   }
 };

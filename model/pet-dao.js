@@ -5,12 +5,20 @@ class PetDAO {
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO pet SET ?';
 
-      connection.query(sql, pet, error => {
+      connection.query(sql, pet, (error, result) => {
         if (error) {
           return reject(`Error on saving pet: ${error.sqlMessage}`);
         }
 
-        return resolve(pet);
+        const newPet = {
+          id: result.insertId,
+          name: pet.name,
+          client_id: pet.client_id,
+          type: pet.type,
+          comments: pet.comments
+        };
+
+        return resolve(newPet);
       });
     });
   }
